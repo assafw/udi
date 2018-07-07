@@ -1,2 +1,3 @@
-# udi
-µdi - a micro dependency injection framework for the jvm
+# µdi (micro-di)
+
+micro dependency injection framework for the jvm (pronounced udi or oodi)
