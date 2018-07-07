@@ -1,4 +1,5 @@
 language: java
+sudo: required
 
 jdk:
   - oraclejdk8
@@ -8,4 +9,4 @@ branches:
     - master
     
 script:
-  - gradlew build
+  - ./gradlew build
