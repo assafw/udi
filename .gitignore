@@ -28,4 +28,4 @@ hs_err_pid*
 .gradle
 META-INF
 build
-gradle
+!gradle/wrapper/gradle-wrapper.jar
