@@ -24,3 +24,8 @@ hs_err_pid*
 
 # IntelliJ idea
 .idea
+*.iml
+.gradle
+META-INF
+build
+gradle
