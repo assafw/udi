@@ -8,5 +8,5 @@ branches:
   only:
     - master
     
-script:
-  - ./gradlew build
+install:
+  - ./gradlew check
