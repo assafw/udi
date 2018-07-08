@@ -114,7 +114,7 @@ public class ObjectsContainerTests {
     }
 
     @Test(expected = TypeResolutionInstantiationException.class)
-    public void shouldThrowException_WhenTryingToResolveTypeWithMissingCtor()
+    public void shouldThrowExceptionWhenTryingToResolveTypeWithMissingCtor()
             throws TypeResolutionException {
 
         target.registerType(DummyType.class, DummyTypePrivateCtorImpl.class);
@@ -122,7 +122,7 @@ public class ObjectsContainerTests {
     }
 
     @Test(expected = TypeResolutionInstantiationException.class)
-    public void shouldThrowException_WhenTryingToResolveTypeWithUnmatchingCtor()
+    public void shouldThrowExceptionWhenTryingToResolveTypeWithUnmatchingCtor()
             throws TypeResolutionException {
 
         target.registerType(DummyType.class, DummyTypeDifferentCtorImpl.class);
@@ -130,7 +130,7 @@ public class ObjectsContainerTests {
     }
 
     @Test
-    public void shouldReturnSameInstance_WhenRegisteringTypeWithSpecificInstance()
+    public void shouldReturnSameInstanceWhenRegisteringTypeWithSpecificInstance()
             throws TypeResolutionException {
 
         DummyTypeImpl instance = new DummyTypeImpl();
@@ -149,7 +149,7 @@ public class ObjectsContainerTests {
     }
 
     @Test(expected = DuplicateTypeRegistrationException.class)
-    public void shouldThrowException_WhenTryingToRegisterTheSameTypeMoreThanOnce()
+    public void shouldThrowExceptionWhenTryingToRegisterTheSameTypeMoreThanOnce()
             throws DuplicateTypeRegistrationException {
 
         registerDummy();
