@@ -22,7 +22,7 @@ jar {
 
 jacoco {
     toolVersion = "0.8.1"
-    reportsDir = file("$buildDir/reports/tests/jacoco/jacocoTestReport.xml")
+    reportsDir = file("$buildDir/reports/tests/jacoco/")
 }
 
 jacocoTestReport {
