@@ -21,14 +21,15 @@ public class ObjectsContainerTests {
     private ObjectsContainer target;
 
     @Before
-    public void setup() {
+    public void setUp() {
         target = new ObjectsContainer();
     }
 
     @Test
-    public void resolve_ShouldResolveSuccessfully_WhenTypeIsRegistered() throws TypeResolutionException {
-        registerDummy();
+    public void ShouldResolveSuccessfullyWhenTypeIsRegistered()
+            throws TypeResolutionException {
 
+        registerDummy();
         DummyType resolved = target.resolve(DummyType.class);
 
         assertThat(resolved, notNullValue());
@@ -36,9 +37,10 @@ public class ObjectsContainerTests {
     }
 
     @Test
-    public void resolve_ShouldResolveSuccessfullyAndReturnTheSameInstance_WhenTryingToResolveTheSameTypeMultipleTimes() throws TypeResolutionException {
-        registerDummy();
+    public void ShouldResolveAndReturnTheSameInstanceWhenTryingToResolveMultipleTimes()
+            throws TypeResolutionException {
 
+        registerDummy();
         DummyType instance1 = target.resolve(DummyType.class);
         DummyType instance2 = target.resolve(DummyType.class);
 
@@ -46,18 +48,20 @@ public class ObjectsContainerTests {
     }
 
     @Test(expected = TypeRegistrationException.class)
-    public void resolve_ShouldThrowException_WhenTryingToResolveAnUnregisteredType() throws TypeResolutionException {
-        registerDummy();
+    public void ShouldThrowExceptionWhenTryingToResolveAnUnregisteredType()
+            throws TypeResolutionException {
 
+        registerDummy();
         target.resolve(Object.class);
     }
 
     @Test
-    public void resolve_ShouldResolveSuccssfullyTypeWithDependancies_WhenTargetTypeCtorNeedsTheContainerInstance() throws TypeResolutionException {
+    public void ShouldResolveSuccessfullyWhenTargetTypeCtorNeedsTheContainerInstance()
+            throws TypeResolutionException {
+
         registerDummy();
         target.registerType(DummyWithContainer.class, DummyWithContainerImpl.class);
         target.registerInstance(ObjectsContainer.class, target);
-
         DummyWithContainer resolvedInstance = target.resolve(DummyWithContainer.class);
 
         assertThat(resolvedInstance, notNullValue());
@@ -65,10 +69,11 @@ public class ObjectsContainerTests {
     }
 
     @Test
-    public void resolve_ShouldResolveSuccessfullyTypeWithDependencies_WhenTargetTypeDependandsOnAlreadyRegisteredTypes() throws TypeResolutionException {
+    public void ShouldResolveSuccessfullyWhenTargetTypeDependsOnAlreadyRegisteredTypes()
+            throws TypeResolutionException {
+
         registerDummy();
         target.registerType(DummyWithDependency.class, DummyWithDependencyImpl.class);
-
         DummyWithDependency resolvedInstance = target.resolve(DummyWithDependency.class);
 
         assertThat(resolvedInstance, notNullValue());
@@ -76,11 +81,12 @@ public class ObjectsContainerTests {
     }
 
     @Test
-    public void resolve_ShouldResolveSuccessfullyTypeWithDependencies_WhenTargetTypeHasMultipleDependenciesThatAreAlreadyRegisteredTypes() throws TypeResolutionException {
+    public void ShouldResolveSuccessfullyWhenTargetTypeHasMultipleDependenciesThatAreAlreadyRegisteredTypes()
+            throws TypeResolutionException {
+
         registerDummy();
         target.registerType(DummyWithDependency.class, DummyWithDependencyImpl.class);
         target.registerType(DummyWithMultipleDependencies.class, DummyWithMultipleDependenciesImpl.class);
-
         DummyWithMultipleDependencies resolvedInstance = target.resolve(DummyWithMultipleDependencies.class);
 
         assertThat(resolvedInstance, notNullValue());
@@ -89,7 +95,9 @@ public class ObjectsContainerTests {
     }
 
     @Test(expected = TypeResolutionInstantiationException.class)
-    public void resolve_ShouldThrowException_WhenTargetTypeHasMultipleDependenciesAndSomeAreMissing() throws TypeResolutionException {
+    public void ShouldThrowExceptionWhenTargetTypeHasMultipleDependenciesAndSomeAreMissing()
+            throws TypeResolutionException {
+
         // Missing DummyType registration
         target.registerType(DummyWithDependency.class, DummyWithDependencyImpl.class);
         target.registerType(DummyWithMultipleDependencies.class, DummyWithMultipleDependenciesImpl.class);
@@ -98,26 +106,33 @@ public class ObjectsContainerTests {
     }
 
     @Test(expected = TypeResolutionInstantiationException.class)
-    public void resolve_ShouldThrowException_WhenTargetTypeDependsOnTypesThatAreNotRegistered() throws TypeResolutionException {
-        target.registerType(DummyWithDependency.class, DummyWithDependencyImpl.class);
+    public void ShouldThrowExceptionWhenTargetTypeDependsOnTypesThatAreNotRegistered()
+            throws TypeResolutionException {
 
+        target.registerType(DummyWithDependency.class, DummyWithDependencyImpl.class);
         target.resolve(DummyWithDependency.class);
     }
 
     @Test(expected = TypeResolutionInstantiationException.class)
-    public void resolve_ShouldThrowException_WhenTryingToResolveTypeWithMissingCtor() throws TypeResolutionException {
+    public void ShouldThrowException_WhenTryingToResolveTypeWithMissingCtor()
+            throws TypeResolutionException {
+
         target.registerType(DummyType.class, DummyTypePrivateCtorImpl.class);
         target.resolve(DummyType.class);
     }
 
     @Test(expected = TypeResolutionInstantiationException.class)
-    public void resolve_ShouldThrowException_WhenTryingToResolveTypeWithUnmatchingCtor() throws TypeResolutionException {
+    public void ShouldThrowException_WhenTryingToResolveTypeWithUnmatchingCtor()
+            throws TypeResolutionException {
+
         target.registerType(DummyType.class, DummyTypeDifferentCtorImpl.class);
         target.resolve(DummyType.class);
     }
 
     @Test
-    public void resolve_ShouldReturnSameInstance_WhenRegisteringTypeWithSpecificInstance() throws TypeResolutionException {
+    public void ShouldReturnSameInstance_WhenRegisteringTypeWithSpecificInstance()
+            throws TypeResolutionException {
+
         DummyTypeImpl instance = new DummyTypeImpl();
         target.registerInstance(DummyType.class, instance);
 
@@ -126,13 +141,17 @@ public class ObjectsContainerTests {
     }
 
     @Test(expected = DuplicateTypeRegistrationException.class)
-    public void registerInstance_ShouldThrowException_WhenTryingToRegisterTheSameInstanceMoreThanOnce() throws DuplicateTypeRegistrationException {
+    public void ShouldThrowExceptionWhenTryingToRegisterTheSameInstanceMoreThanOnce()
+            throws DuplicateTypeRegistrationException {
+
         target.registerInstance(DummyType.class, new DummyTypeImpl());
         target.registerInstance(DummyType.class, new DummyTypeImpl());
     }
 
     @Test(expected = DuplicateTypeRegistrationException.class)
-    public void registerType_ShouldThrowException_WhenTryingToRegisterTheSameTypeMoreThanOnce() throws DuplicateTypeRegistrationException {
+    public void ShouldThrowException_WhenTryingToRegisterTheSameTypeMoreThanOnce()
+            throws DuplicateTypeRegistrationException {
+
         registerDummy();
         registerDummy();
     }
