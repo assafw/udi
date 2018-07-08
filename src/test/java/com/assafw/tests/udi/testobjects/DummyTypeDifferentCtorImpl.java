@@ -6,7 +6,10 @@ public class DummyTypeDifferentCtorImpl implements DummyType {
     private String str;
 
     public DummyTypeDifferentCtorImpl(String str) {
-
         this.str = str;
+    }
+
+    public String getStr() {
+        return str;
     }
 }
